@@ -6,6 +6,9 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
+import { OrderForm } from '@/components/OrderForm';
+import { AdminPanel } from '@/components/AdminPanel';
+import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   const [weight, setWeight] = useState<number>(1);
@@ -52,9 +55,10 @@ const Index = () => {
 
   const navItems = [
     { id: 'home', label: 'Главная', icon: 'Home' },
+    { id: 'order', label: 'Оформить заказ', icon: 'ShoppingCart' },
     { id: 'calculator', label: 'Калькулятор', icon: 'Calculator' },
     { id: 'tracking', label: 'Отслеживание', icon: 'Search' },
-    { id: 'account', label: 'Личный кабинет', icon: 'User' },
+    { id: 'admin', label: 'Админ', icon: 'Shield' },
     { id: 'contacts', label: 'Контакты', icon: 'Phone' }
   ];
 
@@ -98,6 +102,40 @@ const Index = () => {
       {activeSection === 'home' && (
         <>
           <section className="relative py-20 px-4 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-orange-500/10" />
+            <div className="container mx-auto relative z-10 mb-16">
+              <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-8">
+                  <Badge className="mb-4 bg-orange-100 text-orange-700">
+                    🎥 Видео о нашей работе
+                  </Badge>
+                  <h3 className="text-3xl font-bold text-slate-800 mb-4">Как мы доставляем ваши посылки</h3>
+                  <p className="text-lg text-slate-600 mb-2">Доставка посылок из Адлера в Абхазию от 1 дня</p>
+                  <div className="flex justify-center gap-4 mt-4">
+                    <a href="tel:+79407131999" className="text-blue-600 hover:underline font-semibold flex items-center gap-2">
+                      <Icon name="Phone" size={18} />
+                      +7 940 713 1999
+                    </a>
+                    <a href="tel:+79409061999" className="text-blue-600 hover:underline font-semibold flex items-center gap-2">
+                      <Icon name="Phone" size={18} />
+                      +7 940 906 1999
+                    </a>
+                  </div>
+                </div>
+                <Card className="shadow-2xl overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-video bg-slate-900 flex items-center justify-center">
+                      <div className="text-center text-white">
+                        <Icon name="Play" size={64} className="mx-auto mb-4 opacity-70" />
+                        <p className="text-lg">Здесь будет размещено ваше видео</p>
+                        <p className="text-sm text-slate-400 mt-2">Загрузите видео о доставке через админ-панель</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+            <section className="relative py-20 px-4 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-orange-500/10" />
             <div className="container mx-auto relative z-10">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -320,7 +358,10 @@ const Index = () => {
                   </p>
                 </div>
 
-                <Button className="w-full bg-orange-500 hover:bg-orange-600 text-lg py-6">
+                <Button 
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-lg py-6"
+                  onClick={() => setActiveSection('order')}
+                >
                   <Icon name="ShoppingCart" size={20} className="mr-2" />
                   Оформить заказ
                 </Button>
@@ -457,11 +498,11 @@ const Index = () => {
               <ul className="space-y-2 text-slate-400">
                 <li className="flex items-center gap-2">
                   <Icon name="Phone" size={16} />
-                  +7 (999) 123-45-67
+                  +7 940 713 1999
                 </li>
                 <li className="flex items-center gap-2">
-                  <Icon name="Mail" size={16} />
-                  info@rusabkhaz.ru
+                  <Icon name="Phone" size={16} />
+                  +7 940 906 1999
                 </li>
                 <li className="flex items-center gap-2">
                   <Icon name="MapPin" size={16} />
@@ -480,6 +521,34 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Order Form Section */}
+      {activeSection === 'order' && (
+        <section className="py-20 px-4">
+          <div className="container mx-auto max-w-4xl">
+            <div className="text-center mb-12 animate-fade-in">
+              <Badge className="mb-4 bg-orange-100 text-orange-700">
+                <Icon name="ShoppingCart" size={16} className="mr-2" />
+                Оформление заказа
+              </Badge>
+              <h2 className="text-4xl font-bold text-slate-800 mb-4">Создайте заявку на доставку</h2>
+              <p className="text-xl text-slate-600">
+                Заполните форму и мы свяжемся с вами в ближайшее время
+              </p>
+            </div>
+            <OrderForm />
+          </div>
+        </section>
+      )}
+
+      {/* Admin Panel Section */}
+      {activeSection === 'admin' && (
+        <section className="py-20 px-4 bg-slate-50">
+          <div className="container mx-auto max-w-7xl">
+            <AdminPanel />
+          </div>
+        </section>
+      )}
 
       {/* Mobile Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg z-50">
@@ -500,6 +569,7 @@ const Index = () => {
           ))}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

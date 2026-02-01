@@ -1,0 +1,38 @@
+{
+  "tests": [
+    {
+      "name": "Get all orders",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "orders": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Create order",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "customer_name": "Тестовый клиент",
+        "customer_phone": "+79991234567",
+        "customer_email": "test@example.com",
+        "pickup_point_from": 1,
+        "pickup_point_to": 5,
+        "delivery_type": "pickup",
+        "weight": 2.5,
+        "length": 30,
+        "width": 20,
+        "height": 15,
+        "price": 300
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "success": true,
+        "tracking_number": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

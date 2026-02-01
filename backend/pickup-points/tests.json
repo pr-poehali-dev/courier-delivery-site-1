@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Get all pickup points",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "points": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Get pickup points by country",
+      "method": "GET",
+      "path": "/?country=russia",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "points": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
